@@ -1,0 +1,31 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const user = {
+        id: 'C-137',
+        name: 'Rick Sanchez',
+        email: 'rick@sanchez.com',
+        avatar: 'https://images-na.ssl-images-amazon.com/images/I/71LVoW8DeNL._AC_SY606_.jpg'
+    };
+    /**
+     * User
+     * user params:
+     *   id: string
+     *   name: string
+     *   email: string
+     *   avatar: string
+     * you can pass customized parameters. ex:
+     *   user = {
+     *    transport: 'portal gun'
+     *   }
+     */
+    const room = api.newRoom('my-room-name', user);
+    
+    room.start();
+  </script>
+</html>

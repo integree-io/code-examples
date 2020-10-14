@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const widget = api.createWidget();
+    /**
+     *  Set Room (<room name>) 
+     */ 
+    widget.setRoom("my-room-name");
+    widget.start();
+  </script>
+</html>

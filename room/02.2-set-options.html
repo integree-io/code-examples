@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+    <div id="wrapper"></div>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const room = api.newRoom('my-room-name', {});
+    const options = {
+        mode: 'float',
+        parentNode: document.getElementById('wrapper'),
+        width: '500px',
+        height: '600px',
+        onload: () => {
+            alert('room loaded');
+        }
+    };
+  
+    /**
+     * Set Options
+     * options params:
+     *   mode: ('float'|'fullscreen')
+     *   parentNode: HTML element
+     *   width: string
+     *   height: string
+     *   left: string
+     *   top: string
+     *   onload: function
+     */
+      room.setOptions(options);
+
+    room.start();
+  </script>
+</html>

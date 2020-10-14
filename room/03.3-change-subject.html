@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+    <input type='text' id='name'>
+    <button onclick='changeSubject();'>Change Subject!</button>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const room = api.newRoom('my-room-name', {});
+
+    room.start();
+
+    // seta nome do usuario (somente com a conferencia iniciada/não grava no historico)
+    function changeSubject() {
+      const name = document.getElementById('name').value;
+      /**
+       * setSubject(string)
+       * 
+       * obs: works only with the conference started and does not record the change in history.
+       */
+      room.setSubject(name);
+    };
+  </script>
+</html>

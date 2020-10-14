@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+    <button onclick='room.toggleAudio();'>Toggle Audio!</button>
+    <button onclick='room.toggleVideo();'>Toggle Video!</button>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const room = api.newRoom('my-room-name', {});
+
+    room.start();
+  </script>
+</html>

@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    /**
+     * Position ('right-bottom'|'right-top'|'left-bottom'|'left-top')
+     */
+    const option = {
+      position: 'left-top'
+    };
+    const widget = api.createWidget(option);
+    widget.start();
+  </script>
+</html>

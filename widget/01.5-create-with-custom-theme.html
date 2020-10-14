@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+    <style>
+      .my-custom-theme {
+        --widget-icon-color: #00f7ff;
+        --widget-border-radius: 15px;
+        --widget-background-color: #00f7ff;
+        --widget-primary-color: #ffe600;
+        --widget-primary-color-hover: #ffae00;
+        --widget-text-color: #020091;
+        --widget-border: solid 1px #00d9ff;
+        --widget-button-text-color: #020091;
+        --widget-checkbox-background-color: rgba(170, 170, 170, 0.2);
+        --widget-checkbox-off-color: var(--widget-background-color);
+        --widget-checkbox-icon-background-color: var(--widget-background-color);
+        --widget-input-background-color: rgba(170, 170, 170, 0.2);
+        --widget-input-border: none;
+      }
+    </style>
+  </head>
+  <body>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    /**
+     * Theme (<theme class>).
+     * theme class variables:
+     * --widget-primary-color
+     * --widget-primary-color-hover
+     * --widget-background-color
+     * --widget-text-color
+     * --widget-border
+     * --widget-border-radius
+     * --widget-container-border-radius
+     * --widget-padding
+     * --widget-vertical-position
+     * --widget-horizontal-position
+     * --widget-input-text-color
+     * --widget-input-background-color
+     * --widget-input-border
+     * --widget-button-text-color
+     * --widget-button-background-color
+     * --widget-button-background-color-hover
+     * --widget-icon-color
+     * --widget-checkbox-background-color
+     * --widget-checkbox-switch-width
+     * --widget-checkbox-switch-height
+     * --widget-checkbox-on-color
+     * --widget-checkbox-off-color
+     * --widget-checkbox-icon-background-color
+     */
+    const option = {
+        theme: 'my-custom-theme'
+    };
+    const widget = api.createWidget(option);
+    widget.start();
+  </script>
+</html>

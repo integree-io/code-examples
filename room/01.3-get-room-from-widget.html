@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+    <button onclick='print();'>Get Room!</button>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const widget = api.createWidget();
+    widget.start();
+
+    function print() {
+        /**
+         * get MeetRoom or null
+         */
+        const room = widget.room;
+        const strRoom = JSON.stringify(room, null, 4);
+
+        const logContainer = document.getElementById('log-container');
+        logContainer.innerHTML = strRoom;
+    }
+  </script>
+</html>

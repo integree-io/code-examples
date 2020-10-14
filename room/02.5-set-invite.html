@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC-KEY');
+    const room = api.newRoom('my-room-name', {});
+
+    /**
+     * setInviteURL(string)
+     */
+    room.setInviteURL('https://my-system.com/meet');
+
+    room.start();
+  </script>
+</html>

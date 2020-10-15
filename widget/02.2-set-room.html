@@ -7,8 +7,9 @@
   <script>
     const api = new ConferenciaCorpMeet('PUBLIC-KEY');
     const widget = api.createWidget();
+    //const room = widget.room;
     /**
-     *  Set Room (<room name>) 
+     *  Set Room (<room>|string) 
      */ 
     widget.setRoom("my-room-name");
     widget.start();

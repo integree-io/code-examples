@@ -1,0 +1,58 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Event notifications about avatar changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string, // the id of the participant that changed his avatar
+     *    avatarURL: string // the new avatar URL.
+     * }
+     */
+    room.on("avatarChanged", event => {
+      print("Avatar Changed", event);
+    })
+
+    /**
+     * Event notifications about display name changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string, // the id of the participant that his display name
+     *    displayname: string // the new display name
+     * }
+     */
+    room.on("displayNameChange", event => {
+      print("Display Name Change", event);
+    })
+
+    /**
+     * Event notifications about email changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string, // the id of the participant that changed his email
+     *    email: string // the new email
+     * }
+     */
+    room.on("emailChange", event => {
+      print("Email Change", event);
+    })
+
+    
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

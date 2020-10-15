@@ -1,0 +1,84 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Event notification fired when the role of the local user has changed (none, moderator, participant).
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string // the id of the participant
+     *    role: string // the new role of the participant
+     * }
+     */
+    room.on("participantRoleChanged", event => {
+      print("Participant Role Changed", event);
+    })
+
+    /**
+     * Event notifications about a participants being removed from the room.
+     * The listener will receive an object with the following structure
+     * {
+     *    kicked: {
+     *        id: string, // the id of the participant removed from the room
+     *        local: boolean // whether or not the participant is the local particiapnt
+     *    },
+     *    kicker: {
+     *        id: string // the id of the participant who kicked out the other participant
+     *    }
+     * }
+     */
+    room.on("participantKickedOut", event => {
+      print("Participant Kicked Out", event);
+    })
+
+    /**
+     * Event notifications about new participants who join the room.
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string // the id of the participant
+     *    displayName: string // the display name of the participant
+     * }
+     */
+    room.on("participantJoined", event => {
+      print("Participant Joined", event);
+    })
+
+    /**
+     * Event notifications about participants that leave the room.
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string // the id of the participant
+     * }
+     */
+    room.on("participantLeft", event => {
+      print("Participant Left", event);
+    })
+
+    /**
+     * Receives event notifications about change in the dominant speaker.
+     * The listener will receive an object with the following structure
+     * {
+     *    id: string //participantId of the new dominant speaker
+     * }
+     */
+    room.on("dominantSpeakerChanged", event => {
+      print("Dominant Speaker Changed", event);
+    })
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

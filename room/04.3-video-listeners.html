@@ -1,0 +1,65 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Event notifications about video availability status changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    available: boolean // new available status - boolean
+     * }
+     */
+    room.on("videoAvailabilityChanged", event => {
+      print("Video Availability Changed", event);
+    })
+
+    /**
+     * Event notifications fired when the local user has left the video conference
+     * The listener will receive an object with the following structure
+     * {
+     *    roomName: string // the room name of the conference
+     * }
+     */
+    room.on("videoConferenceLeft", event => {
+      print("Video Conference Left", event);
+    })
+    
+    /**
+     * Event notifications about video mute status changes
+     * The listener will receive an object with the following structure
+     * {
+     *    muted: boolean // new muted status - boolean
+     * }
+     */
+    room.on("videoMuteStatusChanged", event => {
+      print("Video Mute Status Changed", event);
+    })
+
+    /**
+     * Event notifications about the visibility of the filmstrip being updated.
+     * The listener will receive an object with the following structure
+     * {
+     *    visible: boolean // Whether or not the filmstrip is displayed or hidden.
+     * }
+     */
+    room.on("filmstripDisplayChanged", event => {
+      print("filmstripDisplayChanged", event);
+    })
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

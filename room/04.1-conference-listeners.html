@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <script src="https://vc.integree.io/api.js"></script>
+  </head>
+  <body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Event notifications triggered when the local user joined the video conference
+     */
+    room.on("ConferenceStarted", () => {
+      print("Conference Started");
+    })
+
+    /**
+     * Event notification triggered when Videocorp is ready to close (shutdown operations are completed)
+     */
+    room.on("ConferenceEnd", () => {
+      print("Conference End");
+    })
+
+    /**
+     * Event notifications about subject of conference changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    subject: string // the new subject
+     * }
+     */
+    room.on("subjectChange", event => {
+      print("Subject Change", event);
+    })
+
+    /**
+     * Event notifications about tile view layout mode being entered or exited.
+     * The listener will receive an object with the following structure
+     * {
+     *    enabled: boolean, // whether tile view is not displayed or not
+     * }
+     */
+    room.on("tileViewChanged", event => {
+      print("Tile View Changed", event);
+    })
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

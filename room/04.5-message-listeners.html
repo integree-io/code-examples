@@ -1,0 +1,64 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Event notifications about incoming messages.
+     * The listener will receive an object with the following structure
+     * {
+     *    from: string, // The id of the user that sent the message
+     *    nick: string, // the nickname of the user that sent the message
+     *    message: string // the text of the message
+     * }
+     */
+    room.on("incomingMessage", event => {
+      print("Incoming Message", event);
+    })
+
+    /**
+     * Event notifications about outgoing messages.
+     * The listener will receive an object with the following structure
+     * {
+     *    message: string // the text of the message
+     * }
+     */
+    room.on("outgoingMessage", event => {
+      print("Outgoing Message", event);
+    })
+
+    /**
+     * Event notifications about a text message received through datachannels.
+     * The listener will receive an object with the following structure
+     * {
+     *    senderInfo: {
+     *      jid: string, // the jid of the sender
+     *      id: string // the participant id of the sender
+     *    },
+     *    eventData: {
+     *      name: string // the name of the datachannel event: `endpoint-text-message`
+     *      text: string // the received text from the sender
+     *    }
+     * }
+     */
+    room.on("endpointTextMessageReceived", event => {
+      print("Endpoint Text Message Received", event);
+    })
+
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

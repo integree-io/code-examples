@@ -1,0 +1,64 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Event notifications about device list changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    devices: Object // the new list of available devices.
+     * }
+     */
+    room.on("deviceListChanged", event => {
+      print("Device List Changed", event);
+    })
+    
+    /**
+     * Event notifications about Jitsi-Meet having failed to access the mic.
+     * The listener will receive an object with the following structure
+     * {
+     *    type: string, // A constant representing the overall type of the error.
+     *    message: string // Additional information about the error.
+     * }
+     */
+    room.on("micError", event => {
+      print("Mic Error", event);
+    })
+    
+    /**
+     * Event notifications about Jitsi-Meet having failed to access the camera .
+     * The listener will receive an object with the following structure
+     * {
+     *    type: string, // A constant representing the overall type of the error.
+     *    message: string // Additional information about the error.
+     * }
+     */
+    room.on("cameraError", event => {
+      print("Camera Error", event);
+    })
+
+    /**
+     * Event notifications about detecting suspend event in host computer.
+     */
+    room.on("suspendDetected", () => {
+      print("Suspend Detected");
+    })
+
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

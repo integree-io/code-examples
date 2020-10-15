@@ -1,0 +1,38 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * Receives event notifications about turning on/off the local user screen sharing.
+     * The listener will receive an object with the following structure
+     * {
+     *    on: boolean, //whether screen sharing is on
+     *    details: {
+     *      // From where the screen sharing is capturing, if known. Values which are
+     *      // passed include 'window', 'screen', 'proxy', 'device'. The value undefined
+     *      // will be passed if the source type is unknown or screen share is off.
+     *      sourceType: string|undefined
+     *    }
+     * }
+     */
+    room.on("screenSharingStatusChanged", event => {
+      print("Screen Sharing Status Changed", event);
+    })
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>

@@ -1,0 +1,43 @@
+<html>
+	<head>
+    <script src="https://vc.integree.io/api.js"></script>
+	</head>
+	<body>
+    <pre id='log-container'></pre>
+  </body>
+  <script>
+    const api = new ConferenciaCorpMeet('PUBLIC');
+    const room = api.newRoom('my-room-name', {});
+    room.setMode('float');
+
+    /**
+     * AudioAvailabilityChanged - event notifications about audio availability status changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    available: boolean // new available status - boolean
+     * }
+     */
+    room.on("audioAvailabilityChanged", event => {
+      print("Audio Availability Changed", event);
+    })
+
+    /**
+     * Event notifications about audio mute status changes.
+     * The listener will receive an object with the following structure
+     * {
+     *    muted: boolean // new muted status - boolean
+     * }
+     */
+    room.on("audioMuteStatusChanged", event => {
+      print("Audio Mute Status Changed", event);
+    })
+
+    room.start();
+
+    function print(title, obj) {
+      const jsonObj = JSON.stringify(obj, null, 4) || '';
+      const logContainer = document.getElementById('log-container');
+      logContainer.append(`\n*****${title}*****\n${jsonObj}`);
+    }
+  </script>
+</html>
